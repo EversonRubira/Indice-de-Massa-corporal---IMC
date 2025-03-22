@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Calcula IMC</title>
+
+     <style>
+        /* Estilo para destacar a linha */
+        .destaque {
+            background-color: yellow; /* Cor de fundo para destacar */
+        }
+    </style>
+    
+    <script>
+        function exibirIMC() {
+            var peso = document.getElementById("peso").value;
+            var altura = document.getElementById("altura").value; 
+            
+            if (!verificaValores(peso, altura)) {
+                return;
+            }
+
+            var imc = (peso / (altura * altura)).toFixed(2);
+            
+            document.getElementById("resultado").innerHTML = "Seu IMC é: " + imc;
+            document.getElementById("resultado").style.display = "block";
+            document.getElementById("tituloResultados").style.display = "block";
+            document.getElementById("mensagemErro").innerHTML = "";
+            destacarLinhaIMC(imc);
+
+        }
+
+        function verificaValores(peso, altura) {
+            if (peso <= 0 || altura <= 0) {
+                document.getElementById("mensagemErro").innerHTML = "Os valores de peso e altura devem ser maiores que zero.";
+                return false;
+            }
+            
+
+            if (peso === "" || altura === "") {
+                document.getElementById("mensagemErro").innerHTML = "Os valores de peso e altura devem ser preenchidos.";
+                return false;
+            }
+            
+            if (isNaN(peso) || isNaN(altura)) {
+                document.getElementById("mensagemErro").innerHTML = "Os valores de peso e altura devem ser numéricos.";
+                return false;
+            }
+            return true;
+
+           
+        }
+
+        function limparCampos() {
+            document.getElementById("peso").value = "";
+            document.getElementById("altura").value = "";
+            document.getElementById("resultado").style.display = "none";
+            document.getElementById("tituloResultados").style.display = "none";
+            document.getElementById("mensagemErro").innerHTML = "";
+            for (let i = 1; i <= 8; i++) {
+                document.getElementById("linha" + i).classList.remove("destaque");
+            }
+        }
+
+        function destacarLinhaIMC(imc) {
+        // Remove o destaque de todas as linhas
+        for (let i = 1; i <= 8; i++) {
+            document.getElementById("linha" + i).classList.remove("destaque");
+        }
+
+        // Determina qual linha destacar com base no IMC
+        if (imc < 16) {
+            document.getElementById("linha1").classList.add("destaque");
+        } else if (imc >= 16 && imc <= 16.9) {
+            document.getElementById("linha2").classList.add("destaque");
+        } else if (imc >= 17 && imc <= 18.4) {
+            document.getElementById("linha3").classList.add("destaque");
+        } else if (imc >= 18.5 && imc <= 24.9) {
+            document.getElementById("linha4").classList.add("destaque");
+        } else if (imc >= 25 && imc <= 29.9) {
+            document.getElementById("linha5").classList.add("destaque");
+        } else if (imc >= 30 && imc <= 34.9) {
+            document.getElementById("linha6").classList.add("destaque");
+        } else if (imc >= 35 && imc <= 39.9) {
+            document.getElementById("linha7").classList.add("destaque");
+        } else if (imc >= 40) {
+            document.getElementById("linha8").classList.add("destaque");
+        }
+}
+
+    </script>
+</head>
+<body>
+    
+        <h2>Preencha os Dados Abaixo</h2>
+        <form>
+            <label for="peso">Peso (kg):</label><br>
+            <input type="text" id="peso" required><br><br>
+            <label for="altura">Altura (m):</label><br>
+            <input type="text" id="altura" required><br><br>
+            <button type="button" onclick="exibirIMC()">Calcular IMC</button>
+            <button type="button" onclick="limparCampos()">Limpar Campos</button>
+            <br><br>
+            <h2 id="tituloResultados" style="display: none;">Resultados</h2>
+            <p id="resultado" style="display: none;"></p>
+            <div id="mensagemErro"></div>
+
+            <h3>Tabela de Referência do IMC</h3>
+
+<table id="tabelaIMC" border="1">
+    <thead>
+        <tr>
+            <th>IMC (kg/m²)</th>
+            <th>Classificação</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr id="linha1">
+            <td>&lt; 16</td>
+            <td>Magreza grau III</td>
+        </tr>
+        <tr id="linha2">
+            <td>16.0 – 16.9</td>
+            <td>Magreza grau II</td>
+        </tr>
+        <tr id="linha3">
+            <td>17.0 – 18.4</td>
+            <td>Magreza grau I</td>
+        </tr>
+        <tr id="linha4">
+            <td>18.5 – 24.9</td>
+            <td>Adequado</td>
+        </tr>
+        <tr id="linha5">
+            <td>25.0 – 29.9</td>
+            <td>Pré-obeso</td>
+        </tr>
+        <tr id="linha6">
+            <td>30.0 – 34.9</td>
+            <td>Obesidade grau I</td>
+        </tr>
+        <tr id="linha7">
+            <td>35.0 – 39.9</td>
+            <td>Obesidade grau II (severa)</td>
+        </tr>
+        <tr id="linha8">
+            <td>≥ 40</td>
+            <td>Obesidade grau III (mórbida)</td>
+        </tr>
+    </tbody>
+</table>
+        </form>
+
+</body>
+</html>
+
+
