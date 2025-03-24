@@ -6,7 +6,6 @@
     <title>Calcula IMC</title>
 
      <style>
-        /* Estilo para destacar a linha */
         .destaque {
             background-color: yellow; /* Cor de fundo para destacar */
         }
@@ -36,12 +35,13 @@
                 document.getElementById("mensagemErro").innerHTML = "Os valores de peso e altura devem ser maiores que zero.";
                 return false;
             }
-            
+            return true;
 
             if (peso === "" || altura === "") {
                 document.getElementById("mensagemErro").innerHTML = "Os valores de peso e altura devem ser preenchidos.";
                 return false;
             }
+            return true;
             
             if (isNaN(peso) || isNaN(altura)) {
                 document.getElementById("mensagemErro").innerHTML = "Os valores de peso e altura devem ser numéricos.";
@@ -108,7 +108,7 @@
 
             <h3>Tabela de Referência do IMC</h3>
 
-<table id="tabelaIMC" border="1">
+<table id="tabelaIMC" border="5">
     <thead>
         <tr>
             <th>IMC (kg/m²)</th>
